@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4  # 也升级 checkout
 
       - name: Install Go
         uses: actions/setup-go@v4
@@ -25,7 +25,7 @@ jobs:
           ~/go/bin/srs build warmane.txt -o output/warmane.srs
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4  # 关键修正
         with:
           name: warmane-srs
           path: output/warmane.srs
