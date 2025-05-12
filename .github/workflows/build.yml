@@ -1,0 +1,31 @@
+name: Build SRS
+
+on:
+  push:
+    paths:
+      - 'warmane.txt'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21'
+
+      - name: Install srs
+        run: go install github.com/MetaCubeX/srs@latest
+
+      - name: Build .srs
+        run: |
+          mkdir -p output
+          ~/go/bin/srs build warmane.txt -o output/warmane.srs
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: warmane-srs
+          path: output/warmane.srs
